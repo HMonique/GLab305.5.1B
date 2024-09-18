@@ -1,8 +1,10 @@
 package model;
 
 import jakarta.persistence.*;
+import model.Teacher;
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table
@@ -14,11 +16,21 @@ public class Department implements Serializable  {
     @GeneratedValue( strategy=GenerationType.IDENTITY )
     private int deptId;
     private String deptName;
-
     public Department(int deptId, String deptName) {
         super();
         this.deptId = deptId;
         this.deptName = deptName;
+    }
+
+    @OneToMany(targetEntity= Teacher.class, cascade = {CascadeType.ALL})
+    private List<Teacher> teacherList;
+
+    public List<Teacher> getTeacherList() {
+        return teacherList;
+    }
+
+    public void setTeacherList(List<Teacher> teacherList) {
+        this.teacherList = teacherList;
     }
 
     public Department() {}
@@ -43,4 +55,6 @@ public class Department implements Serializable  {
         this.deptName = deptName;
     }
 }
+
+
 
